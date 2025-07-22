@@ -53,14 +53,32 @@ for i, q in enumerate([
 if st.button("🔍 Calculate My Spine Age"):
     total_score = sum(section_scores.values())
 
-    if total_score >= 20:
-        spine_age = 35
-    elif total_score >= 16:
-        spine_age = 45
-    elif total_score >= 12:
-        spine_age = 55
+    # Max score = 22
+    # Adjusted mapping based on actual age brackets
+    if actual_age <= 18:
+        if total_score >= 20:
+            spine_age = 12
+        elif total_score >= 17:
+            spine_age = 15
+        elif total_score >= 14:
+            spine_age = 18
+        else:
+            spine_age = 22
+    elif actual_age >= 50 and total_score >= 21:
+        spine_age = 30  # Cap athletic aging reversal for older users
     else:
-        spine_age = 65
+        if total_score >= 21:
+            spine_age = 16
+        elif total_score >= 19:
+            spine_age = 24
+        elif total_score >= 17:
+            spine_age = 30
+        elif total_score >= 14:
+            spine_age = 40
+        elif total_score >= 11:
+            spine_age = 50
+        else:
+            spine_age = 60
 
     st.success(f"🎯 Your estimated functional spine age: {spine_age} years")
 
