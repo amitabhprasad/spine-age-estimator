@@ -101,6 +101,20 @@ if st.button("🔍 Calculate My Spine Age"):
     st.success(f"🎯 Your estimated functional spine age: {spine_age} years")
     with st.expander("🧠 Why this age?"):
         st.markdown("""
+        ### 🧭 Future Outlook Based on Your Spine Age
+        Based on your current functional spine age, here’s what you might expect if no corrective action is taken:
+
+        - If your spine age is **10+ years older** than your actual age, common future risks may include:
+          - Reduced mobility and flexibility
+          - Increased risk of disc herniation or spinal stenosis
+          - Difficulty with prolonged sitting, bending, or lifting
+          - Higher chance of recurring back pain or nerve impingement
+
+        Without regular mobility training, spinal decompression, and postural correction, your functional spine age may continue to decline **by 5–10 years** over the next decade.
+
+        👉 But the good news: **early intervention can reverse 5–15 years of functional age** in as little as 6–12 months with structured spine health protocols.
+
+        ---
         Your estimated spine age is calculated based on your responses across three domains:
         - **Core and Posture** (e.g., mobility, rotation, deep squat comfort)
         - **Strength and Balance** (e.g., jump squats, one-leg balance, control)
@@ -113,7 +127,9 @@ if st.button("🔍 Calculate My Spine Age"):
         - [Harvard Health - Back Pain](https://www.health.harvard.edu/pain/lower-back-pain)
         - [Spine-Health Mobility Guidelines](https://www.spine-health.com/wellness/exercise/5-exercises-keep-your-spine-healthy)
 
-        🧑‍⚕️ **Need personalized advice?** [Connect with a certified spine coach](https://forms.gle/your-consultation-link) to review your results.
+        🧑‍⚕️ **Need personalized advice?** [Connect with a certified spine coach](https://forms.gle/your-consultation-link)
+
+📘 **Free Resource:** [Download Spine Mobility Starter Program (PDF)](https://yourwebsite.com/spine-mobility-guide.pdf) to review your results.
         """)
 
     if actual_age > 0:
@@ -166,7 +182,7 @@ if st.button("🔍 Calculate My Spine Age"):
         else:
             st.error(f"🚨 {section}: Needs attention")
 
-   # What This Checks Section
+    # What This Checks Section
     st.markdown("### 🔍 What This Assessment Checks")
     st.markdown("""⚠️ **Disclaimer:** This tool is for general educational and wellness purposes only. It is not a substitute for professional medical diagnosis or treatment. Please consult your physician or physical therapist for any persistent or serious spinal concerns.
 
