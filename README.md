@@ -33,3 +33,12 @@ cd spine-age-estimator
 pip install -r requirements.txt
 streamlit run app.py
 
+## 🔄 Future Enhancements  Add:
+📈 Adaptive scoring per age group
+
+🧠 “Why this age?” explanation for user education
+
+📬 Email the report directly
+
+🎯 Gamified recommendations: “Your goal is to shave 3 years off — here’s how!”
+

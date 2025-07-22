@@ -26,7 +26,7 @@ for i, q in enumerate([
     "How do you feel when you get out of bed in the morning?",
     "Can you hold a deep squat for 60 seconds without discomfort?",
     "Can you rotate your upper body and look fully over each shoulder without pain?"  ]):
-    a = ask_question(q, ["A) Yes / No stiffness", "B) Some stiffness", "C) Pain or difficulty"])
+    a = ask_question(q, ["A) No stiffness", "B) Some stiffness", "C) Pain or difficulty"])
     section_scores["Core and Posture"] += 2 if a.startswith("A") else 1 if a.startswith("B") else 0
     answers.append(a)
 
@@ -46,7 +46,19 @@ for i, q in enumerate([
     "Do you sleep on a supportive mattress with good posture?",
     "Do you consciously maintain upright posture while working/sitting?",
     "Have you had back pain lasting more than a week in the past year?"  ]):
-    a = ask_question(q, ["A) Yes / Rarely", "B) Sometimes", "C) No / Frequently"])
+    if "soreness" in q:
+        options = [
+            "A) Rarely or never feel soreness",
+            "B) Occasionally feel mild soreness",
+            "C) Frequently feel moderate or severe soreness"
+        ]
+    else:
+        options = [
+            "A) Consistently / Always",
+            "B) Sometimes",
+            "C) Rarely or Never"
+        ]
+    a = ask_question(q, options)
     section_scores["Recovery and Lifestyle"] += 2 if a.startswith("A") else 1 if a.startswith("B") else 0
     answers.append(a)
 
