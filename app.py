@@ -28,8 +28,8 @@ core_questions = [
     ("Can you rotate your upper body and look fully over each shoulder without pain?", "Checks thoracic and cervical spine rotation capacity.")
 ]
 for q, hint in core_questions:
-    "Can you hold a deep squat for 60 seconds without discomfort?",
-    "Can you rotate your upper body and look fully over each shoulder without pain?"  ]):
+    ("Can you hold a deep squat for 60 seconds without discomfort?",
+    "Can you rotate your upper body and look fully over each shoulder without pain?"):
     a = ask_question(q, ["A) No stiffness", "B) Some stiffness", "C) Pain or difficulty"], help_text=hint)
     section_scores["Core and Posture"] += 2 if a.startswith("A") else 1 if a.startswith("B") else 0
     answers.append(a)
