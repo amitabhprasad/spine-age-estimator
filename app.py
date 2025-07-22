@@ -28,8 +28,6 @@ core_questions = [
     ("Can you rotate your upper body and look fully over each shoulder without pain?", "Checks thoracic and cervical spine rotation capacity.")
 ]
 for q, hint in core_questions:
-    ("Can you hold a deep squat for 60 seconds without discomfort?",
-    "Can you rotate your upper body and look fully over each shoulder without pain?"):
     a = ask_question(q, ["A) No stiffness", "B) Some stiffness", "C) Pain or difficulty"], help_text=hint)
     section_scores["Core and Posture"] += 2 if a.startswith("A") else 1 if a.startswith("B") else 0
     answers.append(a)
@@ -41,8 +39,6 @@ strength_questions = [
     ("Can you stand on one leg (eyes closed) for at least 30 seconds on both legs?", "Evaluates proprioception and lower body neural balance.")
 ]
 for q, hint in strength_questions:
-    "Can you perform standing knee drives (15 per leg) and maintain posture without compensations?",
-    "Can you stand on one leg (eyes closed) for at least 30 seconds on both legs?"  ]):
     a = ask_question(q, ["A) Yes", "B) Somewhat", "C) No"], help_text=hint)
     section_scores["Strength and Balance"] += 2 if a.startswith("A") else 1 if a.startswith("B") else 0
     answers.append(a)
@@ -56,10 +52,6 @@ recovery_questions = [
     ("Have you had back pain lasting more than a week in the past year?", "Looks for chronicity and frequency of spinal stress episodes.")
 ]
 for q, hint in recovery_questions:
-    "Do you do specific exercises to decompress your spine (e.g., hangs, McKenzie extensions)?",
-    "Do you sleep on a supportive mattress with good posture?",
-    "Do you consciously maintain upright posture while working/sitting?",
-    "Have you had back pain lasting more than a week in the past year?"  ]):
     if "soreness" in q:
         options = [
             "A) Rarely or never feel soreness",
@@ -143,9 +135,28 @@ if st.button("🔍 Calculate My Spine Age"):
     if st.download_button("📄 Download My Report as PDF", data=open(generate_pdf(), "rb"), file_name="Spine_Age_Report.pdf"):
         st.success("📥 Your report has been downloaded!")
 
-    # Optional: Save results for progress tracking
-    if email:
-        user_log = f"user_progress_{email.replace('@','_at_')}.txt"
-        with open(user_log, "a") as f:
-            f.write(f"{datetime.date.today()} | Age: {actual_age} | Spine Age: {spine_age} | Scores: {section_scores}\n")
-        st.markdown(f"🗂️ Progress saved for: {email}")
+    # Summary of strengths/weaknesses
+    st.markdown("### 💡 Strengths & Weaknesses Summary")
+    for section, score in section_scores.items():
+        if section == "Recovery and Lifestyle":
+            max_score = 10
+        else:
+            max_score = 6
+        percent = (score / max_score) * 100
+        if percent >= 80:
+            st.success(f"✅ {section}: Excellent")
+        elif percent >= 50:
+            st.warning(f"⚠️ {section}: Moderate – Room for improvement")
+        else:
+            st.error(f"🚨 {section}: Needs attention")
+
+        # What This Checks Section
+    st.markdown("### 🔍 What This Assessment Checks")
+    st.markdown("""⚠️ **Disclaimer:** This tool is for general educational and wellness purposes only. It is not a substitute for professional medical diagnosis or treatment. Please consult your physician or physical therapist for any persistent or serious spinal concerns.
+
+---
+
+- **Core and Posture**: Evaluates spinal stiffness, rotation, and squat ability to detect early degeneration or joint limitations.
+- **Strength and Balance**: Tests dynamic movements like jumps and one-leg balance to assess power, control, and proprioception.
+- **Recovery and Lifestyle**: Captures daily spine care, sleep posture, postural awareness, and history of chronic stress.
+""")
