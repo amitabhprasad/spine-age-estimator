@@ -15,33 +15,47 @@ email = st.text_input("📧 Enter your email to receive results (optional)")
 actual_age = st.number_input("🎂 Your actual age (in years)", min_value=10, max_value=100, step=1)
 
 # Question function
-def ask_question(q, options):
-    return st.radio(q, options, horizontal=False)
+def ask_question(q, options, help_text=None):
+    return st.radio(q, options, help=help_text, horizontal=False)
 
 answers = []
 section_scores = {"Core and Posture": 0, "Strength and Balance": 0, "Recovery and Lifestyle": 0}
 
 st.markdown("### 🧍 Core and Posture")
-for i, q in enumerate([
-    "How do you feel when you get out of bed in the morning?",
+core_questions = [
+    ("How do you feel when you get out of bed in the morning?", "Assesses spinal stiffness and general mobility after rest."),
+    ("Can you hold a deep squat for 60 seconds without discomfort?", "Evaluates hip, ankle, and lumbar mobility under load."),
+    ("Can you rotate your upper body and look fully over each shoulder without pain?", "Checks thoracic and cervical spine rotation capacity.")
+]
+for q, hint in core_questions:
     "Can you hold a deep squat for 60 seconds without discomfort?",
     "Can you rotate your upper body and look fully over each shoulder without pain?"  ]):
-    a = ask_question(q, ["A) No stiffness", "B) Some stiffness", "C) Pain or difficulty"])
+    a = ask_question(q, ["A) No stiffness", "B) Some stiffness", "C) Pain or difficulty"], help_text=hint)
     section_scores["Core and Posture"] += 2 if a.startswith("A") else 1 if a.startswith("B") else 0
     answers.append(a)
 
 st.markdown("### 🏋️ Strength and Balance")
-for i, q in enumerate([
-    "Can you perform 5 jump squats and box jumps (minimum 12–16 inches) without fear or back/knee pain?",
+strength_questions = [
+    ("Can you perform 5 jump squats and box jumps (minimum 12–16 inches) without fear or back/knee pain?", "Assesses explosive power, spinal load tolerance, and confidence."),
+    ("Can you perform standing knee drives (15 per leg) and maintain posture without compensations?", "Tests core stability, hip flexor strength, and balance."),
+    ("Can you stand on one leg (eyes closed) for at least 30 seconds on both legs?", "Evaluates proprioception and lower body neural balance.")
+]
+for q, hint in strength_questions:
     "Can you perform standing knee drives (15 per leg) and maintain posture without compensations?",
     "Can you stand on one leg (eyes closed) for at least 30 seconds on both legs?"  ]):
-    a = ask_question(q, ["A) Yes", "B) Somewhat", "C) No"])
+    a = ask_question(q, ["A) Yes", "B) Somewhat", "C) No"], help_text=hint)
     section_scores["Strength and Balance"] += 2 if a.startswith("A") else 1 if a.startswith("B") else 0
     answers.append(a)
 
 st.markdown("### 🛌 Recovery and Lifestyle")
-for i, q in enumerate([
-    "Do you regularly feel back soreness after long sitting or lifting?",
+recovery_questions = [
+    ("Do you regularly feel back soreness after long sitting or lifting?", "Detects postural fatigue or disc pressure buildup."),
+    ("Do you do specific exercises to decompress your spine (e.g., hangs, McKenzie extensions)?", "Indicates proactive recovery and spinal unloading habits."),
+    ("Do you sleep on a supportive mattress with good posture?", "Evaluates nighttime spinal recovery environment."),
+    ("Do you consciously maintain upright posture while working/sitting?", "Assesses awareness and effort in posture maintenance."),
+    ("Have you had back pain lasting more than a week in the past year?", "Looks for chronicity and frequency of spinal stress episodes.")
+]
+for q, hint in recovery_questions:
     "Do you do specific exercises to decompress your spine (e.g., hangs, McKenzie extensions)?",
     "Do you sleep on a supportive mattress with good posture?",
     "Do you consciously maintain upright posture while working/sitting?",
@@ -58,7 +72,7 @@ for i, q in enumerate([
             "B) Sometimes",
             "C) Rarely or Never"
         ]
-    a = ask_question(q, options)
+    a = ask_question(q, options, help_text=hint)
     section_scores["Recovery and Lifestyle"] += 2 if a.startswith("A") else 1 if a.startswith("B") else 0
     answers.append(a)
 
