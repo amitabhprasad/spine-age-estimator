@@ -99,6 +99,22 @@ if st.button("🔍 Calculate My Spine Age"):
             spine_age = 60
 
     st.success(f"🎯 Your estimated functional spine age: {spine_age} years")
+    with st.expander("🧠 Why this age?"):
+        st.markdown("""
+        Your estimated spine age is calculated based on your responses across three domains:
+        - **Core and Posture** (e.g., mobility, rotation, deep squat comfort)
+        - **Strength and Balance** (e.g., jump squats, one-leg balance, control)
+        - **Recovery and Lifestyle** (e.g., soreness, sleep, decompression habits)
+
+        The scoring is mapped to approximate functional milestones across age ranges — so a low spine age reflects stronger, more mobile, and well-recovered spinal function.
+
+        ---
+        🔍 **External References**:
+        - [Harvard Health - Back Pain](https://www.health.harvard.edu/pain/lower-back-pain)
+        - [Spine-Health Mobility Guidelines](https://www.spine-health.com/wellness/exercise/5-exercises-keep-your-spine-healthy)
+
+        🧑‍⚕️ **Need personalized advice?** [Connect with a certified spine coach](https://forms.gle/your-consultation-link) to review your results.
+        """)
 
     if actual_age > 0:
         delta = actual_age - spine_age
@@ -150,7 +166,7 @@ if st.button("🔍 Calculate My Spine Age"):
         else:
             st.error(f"🚨 {section}: Needs attention")
 
-        # What This Checks Section
+   # What This Checks Section
     st.markdown("### 🔍 What This Assessment Checks")
     st.markdown("""⚠️ **Disclaimer:** This tool is for general educational and wellness purposes only. It is not a substitute for professional medical diagnosis or treatment. Please consult your physician or physical therapist for any persistent or serious spinal concerns.
 
@@ -160,3 +176,10 @@ if st.button("🔍 Calculate My Spine Age"):
 - **Strength and Balance**: Tests dynamic movements like jumps and one-leg balance to assess power, control, and proprioception.
 - **Recovery and Lifestyle**: Captures daily spine care, sleep posture, postural awareness, and history of chronic stress.
 """)
+
+    # Optional: Save results for progress tracking
+    if email:
+        user_log = f"user_progress_{email.replace('@','_at_')}.txt"
+        with open(user_log, "a") as f:
+            f.write(f"{datetime.date.today()} | Age: {actual_age} | Spine Age: {spine_age} | Scores: {section_scores}\n")
+        st.markdown(f"🗂️ Progress saved for: {email}")
